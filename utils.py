@@ -6,17 +6,24 @@ from pathlib import Path
 
 ###########################
 
+def day(fpth):
+    n = int(Path(fpth).parts[-1][3:-3])
+    print(f"\n####### Day {n} #######")
+    return n
 
 def get_input(day, converter=None, debug=False):
     """."""
     input_file = Path('input') / (str(day) + ".txt")
-    with open(input_file) as f:
-        text = list(map(str.strip, f.readlines()))
-    if debug:
-        print(f'INPUT_TEXT={text}'[:75] + '...]')
-    if converter:
-        return list(map(converter, text))
-    return text
+    try:
+        with open(input_file) as f:
+            text = list(map(str.strip, f.readlines()))
+        if debug:
+            print(f'INPUT_TEXT={text}'[:75] + '...]')
+        if converter:
+            return list(map(converter, text))
+        return text
+    except:
+        return []
 
 
 def lcm(*args):
@@ -90,3 +97,9 @@ def bfs(textmap, start="@", end="o", wall="#", open=" "):
         # If all nodes filled return final node route
         if idx == len(queue):
             return queue[-1]
+
+def part1(func):
+    print(f"\n    Part 1\n    {func()}")
+
+def part2(func):
+    print(f"\n    Part 2\n    {func()}")

@@ -23,3 +23,11 @@ import day22
 import day23
 import day24
 import day25
+from utils import FAILED, PASSED, RAN, SKIPPED
+t=lambda n:{1:"test "}.get(n,"tests")
+print(f"""
+{SKIPPED:-3d} {t(SKIPPED)} skipped
+{RAN:-3d} {t(RAN)} executed
+{PASSED:-3d} {t(PASSED)} passed
+{FAILED:-3d} {t(FAILED)} failed
+""")

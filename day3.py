@@ -17,9 +17,9 @@ def f1(right=3, down=1):
     return trees
 
 @part1
-def p1():
+def p1(expect=244):
     return f1()
 
 @part2
-def func2():
+def func2(expect=9406609920):
     return f1(1,1) * f1(3,1) * f1(5,1) * f1(7,1) * f1(1,2)

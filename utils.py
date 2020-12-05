@@ -3,12 +3,16 @@
 import re
 import math
 from pathlib import Path
+import pdb
+
+TRACE=pdb.set_trace
+FAILED = PASSED = RAN = SKIPPED = 0
 
 ###########################
 
 def day(fpth):
     n = int(Path(fpth).parts[-1][3:-3])
-    print(f"\n####### Day {n} #######")
+    print(f"####### Day {n} #######")
     return n
 
 def get_input(day, converter=None, debug=False):
@@ -98,8 +102,32 @@ def bfs(textmap, start="@", end="o", wall="#", open=" "):
         if idx == len(queue):
             return queue[-1]
 
+def show_part(func, part):
+    global FAILED, PASSED, RAN, SKIPPED
+    ret = func()
+    if ret is None:
+        SKIPPED += 1
+        return
+    RAN += 1
+    expect = None
+    try:
+        expect = func.__defaults__[0]
+    except TypeError:
+        pass
+    if expect:
+        if ret == expect:
+            print(f"\n    Part {part}\n    PASS: {ret}")
+            PASSED += 1
+        else:
+            print(f"\n    Part {part}\n    FAIL: {ret} expected {expect}")
+            FAILED += 1
+    else:
+        print(f"\n    Part {part}\n    {ret}")
+    if part==2:
+        print("")
+
 def part1(func):
-    print(f"\n    Part 1\n    {func()}")
+    show_part(func, 1)
 
 def part2(func):
-    print(f"\n    Part 2\n    {func()}")
+    show_part(func, 2)

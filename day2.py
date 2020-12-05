@@ -6,7 +6,7 @@ DATA = get_input(DAY)
 PARSED = [sscanf(_, r'(\d+)-(\d+) (.): (.*)', [int, int, str, str]) for _ in DATA]
 
 @part1
-def p1():
+def p1(expect=572):
     count = 0
     for lo, hi, ch, pw in PARSED:
         if lo <= Counter(pw)[ch] <= hi:
@@ -14,7 +14,7 @@ def p1():
     return count
 
 @part2
-def p2():
+def p2(expect=306):
     count = 0
     for p1, p2, ch, pw in PARSED:
         if (pw[p1-1]==ch or pw[p2-1]==ch) and pw[p1-1]!=pw[p2-1]:

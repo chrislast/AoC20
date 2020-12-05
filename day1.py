@@ -4,11 +4,11 @@ DAY = day(__file__)
 DATA = get_input(DAY, int) # 200 items
 
 @part1
-def part1():
+def part1(expect=888331):
     return [x*y for x in DATA for y in DATA if x+y==2020 and x!=y][0] # 40K loops
 
 @part2
-def part2():
+def part2(expect=130933530):
     def func():
         loopc=0
         for ix, x in enumerate(DATA):
@@ -19,4 +19,4 @@ def part2():
                         if x+y+z==2020:
                             yield x*y*z  #, x, y, z, loopc
     return next(func()) # much faster - 20K loops not 8M
-    # return [x*y*z for x in DATA for y in DATA for z in DATA if x+y+z==2020 and x!=y and x!=z and y!=z][0]
+    # return [x*y*z for x in DATA for y in DATA for z in DATA if x+y+z==2020 and x!=y!=z!=x][0]

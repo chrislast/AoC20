@@ -4,6 +4,7 @@ import re
 import math
 from pathlib import Path
 import pdb
+import time
 
 TRACE=pdb.set_trace
 FAILED = PASSED = RAN = SKIPPED = 0
@@ -104,7 +105,9 @@ def bfs(textmap, start="@", end="o", wall="#", open=" "):
 
 def show_part(func, part):
     global FAILED, PASSED, RAN, SKIPPED
+    t1 = time.time()
     ret = func()
+    elapsed = time.time()-t1
     if ret is None:
         SKIPPED += 1
         return
@@ -116,13 +119,13 @@ def show_part(func, part):
         pass
     if expect:
         if ret == expect:
-            print(f"\n    Part {part}\n    PASS: {ret}")
+            print(f"\n    Part {part}\n    PASS: {ret}\n    in {elapsed:.3f} seconds")
             PASSED += 1
         else:
             print(f"\n    Part {part}\n    FAIL: {ret} expected {expect}")
             FAILED += 1
     else:
-        print(f"\n    Part {part}\n    {ret}")
+        print(f"\n    Part {part}\n    {ret}\n    in {elapsed:.3f} seconds")
     if part==2:
         print("")
 

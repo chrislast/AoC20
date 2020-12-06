@@ -20,12 +20,14 @@ jobs:
       with:
         python-version: 3.8
     - name: env
-      run: set
+      run: set > env.txt
     - name: Test Solutions
       id: testsolutions
       run: |
-        python test.py > results.txt
+        python test.py | tee results.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: results
         path: results.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        path: env.txt

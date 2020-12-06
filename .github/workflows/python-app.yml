@@ -21,4 +21,4 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
-        py test.py
+        python test.py

@@ -1,6 +1,6 @@
 # run solution tester
 
-name: Python application
+name: Advent of Code 2020 Solution Tester
 
 on:
   push:

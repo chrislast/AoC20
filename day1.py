@@ -4,7 +4,7 @@ DAY = day(__file__)
 DATA = get_input(DAY, int) # 200 items
 
 @part1
-def part1(expect=8883312):
+def part1(expect=888331):
     return [x*y for x in DATA for y in DATA if x+y==2020 and x!=y][0] # 40K loops
 
 @part2

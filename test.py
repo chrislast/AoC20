@@ -1,3 +1,4 @@
+import sys
 import day1
 import day2
 import day3
@@ -31,3 +32,4 @@ print(f"""
 {PASSED:-3d} {t(PASSED)} passed
 {FAILED:-3d} {t(FAILED)} failed
 """)
+sys.exit(FAILED)

@@ -22,4 +22,8 @@ jobs:
     - name: Test Solutions
       id: testsolutions
       run: |
-        python test.py
+        python test.py > results.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: results
+        path: results.txt

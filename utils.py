@@ -134,3 +134,111 @@ def part1(func):
 
 def part2(func):
     show_part(func, 2)
+
+class Instruction:
+    def __init__(self, instruction):
+        self.mnemonic, *self.oplist = instruction.split()
+        self.reached = 0
+
+class Computer:
+    def __init__(self):
+        self.code = []
+        self.data = []
+        self.reset()
+
+        self.instructions = dict(
+            acc=self.acc,
+            jmp=self.jmp,
+            nop=self.nop,
+            )
+
+
+    def load(self, program):
+        """
+        Fill code memory
+        """
+        self.code = [Instruction(_) for _ in program]
+
+    def dump(self):
+        """
+        Dump code memory
+        [      0] jmp +232                 visited 1 times
+        [      1] acc +21                  visited 0 times
+        '''
+        [    119] acc -16                  visited 0 times
+        [    120] acc +45                  visited 0 times
+        [    121] jmp +373                 visited 0 times
+        [*   122] jmp +116                 visited 2 times
+        [    123] jmp +245                 visited 0 times
+        [    124] acc -19                  visited 0 times
+        [    125] acc +32                  visited 0 times
+        [    126] jmp -22                  visited 0 times
+        """
+        for idx, i in enumerate(self.code):
+            here = {True:"*", False:" "}[idx==self.pc]
+            print(f"[{here}{idx:-6d}] {i.mnemonic} {' '.join(i.oplist):20s} visited {i.reached} times")
+
+    def reset(self):
+        """
+        Reset computer
+        """
+        self.pc = 0
+        for i in self.code:
+            i.reached = 0
+        self.state = "STOPPED"
+        self.registers = dict(
+            acc=0
+        )
+
+    def run(self, *, reset=True, breakpoint=None, trace=False):
+        """
+        Run (or continue) execution until breakpoint or end reached
+        """
+        if reset:
+            self.reset()
+        self.state = "RUNNING"
+        while True:
+            try:
+                # fetch next instruction
+                i = self.code[self.pc]
+
+            except IndexError:
+                # program is complete when PC leaves code address space
+                self.state = "COMPLETE"
+                break
+
+            # update profiler counter
+            i.reached += 1
+
+            # stop if breakpoint present and True
+            if breakpoint and breakpoint():
+                self.state = "STOPPED"
+                return
+
+            # show next line to execute
+            if trace:
+                print(f"[{self.pc:-6d}] {i.mnemonic} {' '.join(i.oplist):20s} {self.registers}")
+
+            # execute instruction
+            pc = self.pc
+            self.instructions[i.mnemonic](i.oplist)
+            # Step program counter if not changed by instruction - could break if conditional jump to self with side effect becomes a thing...
+            if pc == self.pc:
+                self.pc += 1
+
+    # **** INSTRUCTION SET ****
+
+    def nop(self, oplist):
+        "No-op"
+        pass
+
+    def acc(self, oplist):
+        """update acc register"""
+        val = int(oplist[0])
+        self.registers["acc"] += val
+
+    def jmp(self, oplist):
+        """jump"""
+        val = int(oplist[0])
+        self.pc += val
+

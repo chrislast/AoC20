@@ -1,34 +1,39 @@
 from utils import *
 
 DAY = day(__file__)
-DATA = get_input(DAY)
+PROGRAM = get_input(DAY)
+
+COMPUTER = Computer(PROGRAM)
+
+def breakpoint():
+    """break if statement reached twice"""
+    return COMPUTER.code[COMPUTER.pc].reached > 1
 
 @part1
 def func(expect=1528):
-    c=Computer()
-    c.load(DATA)
-    def breakpoint():
-        return c.code[c.pc].reached > 1
-    c.run(breakpoint=breakpoint)
-    return c.registers["acc"]
+    COMPUTER.run(breakpoint=breakpoint)
+    return COMPUTER.registers["acc"]
 
 @part2
 def func(expect=640):
-    c=Computer()
-    c.load(DATA)
-    def breakpoint():
-        return c.code[c.pc].reached > 1
-    for i in c.code:
+    for i in COMPUTER.code:
+
+        # change a nop to jmp
         if i.mnemonic == "nop":
             i.mnemonic = "jmp"
-            c.run(breakpoint=breakpoint)
-            if c.state == "COMPLETE":
-                return c.registers["acc"]
+            # see if it completes
+            COMPUTER.run(breakpoint=breakpoint)
+            if COMPUTER.state == "COMPLETE":
+                return COMPUTER.registers["acc"]
+            # undo change
             i.mnemonic = "nop"
 
+        # change a jmp to nop
         elif i.mnemonic == "jmp":
             i.mnemonic = "nop"
-            c.run(breakpoint=breakpoint)
-            if c.state == "COMPLETE":
-                return c.registers["acc"]
+            # see if it completes
+            COMPUTER.run(breakpoint=breakpoint)
+            if COMPUTER.state == "COMPLETE":
+                return COMPUTER.registers["acc"]
+            # undo change
             i.mnemonic = "jmp"

@@ -141,9 +141,9 @@ class Instruction:
         self.reached = 0
 
 class Computer:
-    def __init__(self):
-        self.code = []
+    def __init__(self, program=None):
         self.data = []
+        self.load(program)
         self.reset()
 
         self.instructions = dict(
@@ -157,7 +157,10 @@ class Computer:
         """
         Fill code memory
         """
-        self.code = [Instruction(_) for _ in program]
+        if program:
+            self.code = [Instruction(_) for _ in program]
+        else:
+            self.code = []
 
     def dump(self):
         """

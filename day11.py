@@ -75,11 +75,11 @@ def count_occupied(array):
 @part1
 def func(expect=2361):
     c, after = fill_boat(rule1, tolerate=4)
-    show(after, c)
+    # show(after, c)
     return count_occupied(after)
 
 @part2
 def func(expect=2119):
     c, after = fill_boat(rule2, tolerate=5)
-    show(after, c)
+    # show(after, c)
     return count_occupied(after)

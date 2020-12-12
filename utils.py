@@ -1,4 +1,4 @@
-""" Advent of Code 2019 """
+""" Advent of Code 2020 """
 # pylint: disable=C0114, C0115, C0116, C0103
 import re
 import math

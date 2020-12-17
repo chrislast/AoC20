@@ -281,7 +281,6 @@ for f in fields:
     _maxl = max(_maxl, l2)
     _minh = min(_minh, h1)
     _maxh = max(_maxh, h2)
-print(_minl, _maxl, _minh, _maxh)
 
 @part1
 def func(expect=27850):
@@ -325,6 +324,9 @@ def func(expect=491924517533):
                         pp.remove(found)
                     except KeyError:
                         pass
+    print()
+    for _ in sorted(actual):
+        print(f"{_:20s}: {your_ticket[actual[_]]}")
     return (
         your_ticket[actual['departure_date']] *
         your_ticket[actual['departure_location']] *

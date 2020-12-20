@@ -24,6 +24,7 @@ jobs:
     - name: Test Solutions
       id: testsolutions
       run: |
+        pip install numpy
         python test.py | tee results.txt
     - uses: actions/upload-artifact@v2
       with:

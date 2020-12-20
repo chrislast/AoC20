@@ -5,6 +5,7 @@ import math
 from pathlib import Path
 import pdb
 import time
+from pprint import pprint
 
 TRACE=pdb.set_trace
 FAILED = PASSED = RAN = SKIPPED = 0

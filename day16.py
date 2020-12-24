@@ -324,9 +324,9 @@ def func(expect=491924517533):
                         pp.remove(found)
                     except KeyError:
                         pass
-    print()
-    for _ in sorted(actual):
-        print(f"{_:20s}: {your_ticket[actual[_]]}")
+    # print()
+    # for _ in sorted(actual):
+    #     print(f"{_:20s}: {your_ticket[actual[_]]}")
     return (
         your_ticket[actual['departure_date']] *
         your_ticket[actual['departure_location']] *

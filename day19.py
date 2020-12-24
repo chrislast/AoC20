@@ -34,9 +34,9 @@ def regexes():
 
 def p0():
     acc=0
-    p0 = regexes()["p0"]
+    p0 = regexes()["p0"] + "$"
     for m in MESSAGES:
-        if re.match(p0 + "$", m):
+        if re.match(p0, m):
             acc += 1
     return acc
 

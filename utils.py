@@ -6,6 +6,7 @@ from pathlib import Path
 import pdb
 import time
 from pprint import pprint
+from collections import deque
 
 TRACE=pdb.set_trace
 FAILED = PASSED = RAN = SKIPPED = 0

@@ -136,7 +136,7 @@ def play_recursive_game(p1, p2, g):
 #P2 = deque([5, 8, 4, 7, 10])
 
 @part2
-def func():
+def func(expect=32835):
     p1 = P1.copy()
     p2 = P2.copy()
     return play_recursive_game(p1.copy(), p2.copy(), 1)
